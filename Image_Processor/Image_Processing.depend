@@ -63,3 +63,27 @@
 	"Vector.h"
 	<iostream>
 
+1581094028 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\image.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<cmath>
+	<string>
+	"Image.h"
+
+1581093935 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\image.h
+	"Vector.h"
+	<string>
+
+1577287314 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\vector.h
+	"Pixel.h"
+
+1578672794 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\pixel.h
+
+1577287314 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\pixel.cpp
+	"Pixel.h"
+
+1577287314 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\vector.cpp
+	"Vector.h"
+	<iostream>
+

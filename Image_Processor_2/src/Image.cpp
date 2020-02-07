@@ -1,5 +1,5 @@
-#define _WIN32_WINNT 0x500
-#include <windows.h>
+//#define _WIN32_WINNT 0x500
+//#include <windows.h>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -149,6 +149,7 @@ void Image::readFromFile(const string fileIn)
     }
     fin.close();
 }
+/*
 void Image::drawToConsole()
 {
     ///Draws ppm or pgm file onto the console window
@@ -219,3 +220,4 @@ void Image::drawToConsole()
         DeleteDC(hdc);
     }
 }
+*/

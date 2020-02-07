@@ -1,4 +1,4 @@
-#include <windows.h>
+//#include <windows.h>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-    SetConsoleTitle("Image Processor");
+    //SetConsoleTitle("Image Processor");
 
     string fileIn;
     string format;

@@ -24,7 +24,7 @@ class Image
         ///Functions-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         void addPixel(Pixel p);
         void readFromFile(const std::string fileIn);
-        void drawToConsole();
+        //void drawToConsole();
 
     private:
         Pixel *head;

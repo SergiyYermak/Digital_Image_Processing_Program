@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-    SetConsoleTitle("Image Processor 2.0");
+    //SetConsoleTitle("Image Processor 2.0");
 
     string fileIn;
 
@@ -39,5 +39,5 @@ int main()
     fin.close();
     Image m;
     m.readFromFile(fileIn);
-    m.drawToConsole();
+    //m.drawToConsole();
 }
