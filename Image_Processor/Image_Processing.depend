@@ -1,0 +1,65 @@
+# depslib dependency file v1.0
+1575485975 source:c:\users\sergiyyermak\desktop\cs projects\public\image_processing\src\image.cpp
+	"Image.h"
+	<iostream>
+	<iomanip>
+	<fstream>
+
+1575485975 c:\users\sergiyyermak\desktop\cs projects\public\image_processing\include\image.h
+	"Vector.h"
+	<string>
+
+1575495516 source:c:\users\sergiyyermak\desktop\cs projects\public\image_processing\main.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+	"Image.h"
+
+1574126061 c:\users\sergiyyermak\desktop\cs projects\public\image_processing\include\matrix.h
+	"Vector.h"
+
+1575485975 c:\users\sergiyyermak\desktop\cs projects\public\image_processing\include\vector.h
+	"Pixel.h"
+
+1575485975 source:c:\users\sergiyyermak\desktop\cs projects\public\image_processing\src\pixel.cpp
+	"Pixel.h"
+
+1575485975 c:\users\sergiyyermak\desktop\cs projects\public\image_processing\include\pixel.h
+
+1575485975 source:c:\users\sergiyyermak\desktop\cs projects\public\image_processing\src\vector.cpp
+	"Vector.h"
+	<iostream>
+
+1581093677 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\image_processing\main.cpp
+	<windows.h>
+	<iostream>
+	<fstream>
+	<iomanip>
+	<cmath>
+	"Image.h"
+
+1581093935 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\image_processing\include\image.h
+	"Vector.h"
+	<string>
+
+1577287314 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\image_processing\include\vector.h
+	"Pixel.h"
+
+1578672794 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\image_processing\include\pixel.h
+
+1578769872 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\image_processing\src\image.cpp
+	<windows.h>
+	<iostream>
+	<iomanip>
+	<fstream>
+	<cmath>
+	<string>
+	"Image.h"
+
+1577287314 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\image_processing\src\pixel.cpp
+	"Pixel.h"
+
+1577287314 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\image_processing\src\vector.cpp
+	"Vector.h"
+	<iostream>
+
