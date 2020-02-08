@@ -1,5 +1,5 @@
-//#define _WIN32_WINNT 0x500
-//#include <windows.h>
+#define _WIN32_WINNT 0x500
+#include <windows.h>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -11,10 +11,14 @@ using namespace std;
 ///Constructors--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Image::Image()
 {
+    ImageArr = new Pixel[0];
     head = nullptr;
+    currentPix = nullptr;
+    currentFirstCol = nullptr;
     currentCol = 0;
     currentRow = 0;
 
+    currentNumOfPixels = 0;
     maxColumns = 0;
     maxRows = 0;
     maxBrightness = 0;
@@ -23,10 +27,14 @@ Image::Image()
 }
 Image::Image(const int columns, const int rows, const int brightness, const string formt, const string fName)
 {
+    ImageArr = new Pixel[columns * rows];
     head = nullptr;
+    currentPix = nullptr;
+    currentFirstCol = nullptr;
     currentCol = 0;
     currentRow = 0;
 
+    currentNumOfPixels = 0;
     maxColumns = columns;
     maxRows = rows;
     maxBrightness = brightness;
@@ -62,61 +70,62 @@ string Image::getFileName() const
 ///Functions-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Image::addPixel(Pixel p)
 {
+    ImageArr[currentNumOfPixels] = p;
+    ///If very first pixel, set to head, set to currentFirstCol, and currentPix;
     if(currentCol == 0 && currentRow == 0)
     {
         head = &p;
-        currentPix = head;
-        currentFirstCol = head;
+        currentPix = &p;
+        currentFirstCol = &p;
         currentCol++;
     }
-    else if(currentCol == maxColumns-1)
+    ///If max amount of pixels are in a row, add the next pixel to the next row.
+    else if(currentCol == maxColumns)
     {
-        cout << "I got here 1" << endl;
         ///Step 1 and 2
-        currentFirstCol->setDown(p);
-        currentFirstCol->getDown()->setUp(*currentFirstCol);
+        (*currentFirstCol).setDown(p);
+        p.setUp(*currentFirstCol);
 
-        cout << "I got here 2" << endl;
         ///Step 3 and 4
-        currentFirstCol->getRight()->setDownLeft(*(currentFirstCol->getDown()));
-        currentFirstCol->getDown()->setUpRight(*(currentFirstCol->getRight()));
+        (*(*currentFirstCol).getRight()).setDownLeft(p);                                   ///ERROR IS HERE
+        p.setUpRight(*((*currentFirstCol).getRight()));
 
-        cout << "I got here 3" << endl;
         ///Update current information
         currentCol = 0;
         currentRow++;
-        currentPix = currentFirstCol->getDown();
-        currentFirstCol = currentFirstCol->getDown();
+        currentPix = (*currentFirstCol).getDown();
+        currentFirstCol = (*currentFirstCol).getDown();
     }
     else
     {
         ///Step 1 and 2
-        currentPix->setRight(p);
-        currentPix->getRight()->setLeft(*currentPix);
+        (*currentPix).setRight(p);
+        p.setLeft(*currentPix);
 
         ///Step 3 and 4
-        if(currentPix->getUp() != nullptr)
+        if((*currentPix).getUp() != nullptr)
         {
-            currentPix->getUp()->setDownRight(*(currentPix->getRight()));
-            currentPix->getRight()->setUpLeft(*(currentPix->getUp()));
+            (*(*currentPix).getUp()).setDownRight(*((*currentPix).getRight()));
+            (*(*currentPix).getRight()).setUpLeft(*((*currentPix).getUp()));
         }
 
         ///Step 5 and 6
-        if(currentPix->getUpRight() != nullptr)
+        if((*currentPix).getUpRight() != nullptr)
         {
-            currentPix->getUpRight()->setDown(*(currentPix->getRight()));
-            currentPix->getRight()->setUp(*(currentPix->getUpRight()));
+            (*(*currentPix).getUpRight()).setDown(*((*currentPix).getRight()));
+            (*(*currentPix).getRight()).setUp(*((*currentPix).getUpRight()));
             ///Step 7 and 8
-            if(currentPix->getUpRight()->getRight() != nullptr)
+            if((*(*currentPix).getUpRight()).getRight() != nullptr)
             {
-                currentPix->getUpRight()->getRight()->setDownLeft(*(currentPix->getRight()));
-                currentPix->getRight()->setUpRight(*(currentPix->getUpRight()->getRight()));
+                (*(*(*currentPix).getUpRight()).getRight()).setDownLeft(*((*currentPix).getRight()));
+                (*(*currentPix).getRight()).setUpRight(*((*(*currentPix).getUpRight()).getRight()));
             }
         }
         ///Step 9 and 10
         currentCol++;
-        currentPix = currentPix->getRight();
+        currentPix = &p;
     }
+    currentNumOfPixels++;
 }
 void Image::readFromFile(const string fileIn)
 {
@@ -145,11 +154,12 @@ void Image::readFromFile(const string fileIn)
                 fin >> white;
                 Pixel p(white);
                 addPixel(p);
+                cerr << "Added pixel: " << currentNumOfPixels << endl;
         }
     }
     fin.close();
 }
-/*
+
 void Image::drawToConsole()
 {
     ///Draws ppm or pgm file onto the console window
@@ -220,4 +230,4 @@ void Image::drawToConsole()
         DeleteDC(hdc);
     }
 }
-*/
+

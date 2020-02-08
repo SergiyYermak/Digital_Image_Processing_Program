@@ -51,12 +51,12 @@
 1579988617 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\image_processor_2\src\pixel.cpp
 	"Pixel.h"
 
-1579988617 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\src\pixel.cpp
+1581181016 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\src\pixel.cpp
 	"Pixel.h"
 
-1581096519 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\include\pixel.h
+1581181145 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\include\pixel.h
 
-1581096497 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\main.cpp
+1581177307 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\main.cpp
 	<windows.h>
 	<iostream>
 	<fstream>
@@ -64,7 +64,16 @@
 	<cmath>
 	"Image.h"
 
-1581096497 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\include\image.h
+1581181390 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\include\image.h
 	<string>
 	"Pixel.h"
+
+1581185442 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor_2\src\image.cpp
+	<windows.h>
+	<iostream>
+	<iomanip>
+	<fstream>
+	<cmath>
+	<string>
+	"Image.h"
 

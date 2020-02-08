@@ -19,28 +19,28 @@ class Pixel
         int getPixelBlue() const;                                                               ///return hue of blue
         int getPixelWhite() const;                                                              ///return hue of white
         ///Neighbor Getters
-        Pixel* getUpLeft() const;
-        Pixel* getUp() const;
-        Pixel* getUpRight() const;
-        Pixel* getRight() const;
-        Pixel* getDownRight() const;
-        Pixel* getDown() const;
-        Pixel* getDownLeft() const;
-        Pixel* getLeft() const;
+        Pixel* getUpLeft() const;                                                               ///return the pointer of the upleft neighbor
+        Pixel* getUp() const;                                                                   ///return the pointer of the up neighbor
+        Pixel* getUpRight() const;                                                              ///return the pointer of the upright neighbor
+        Pixel* getRight() const;                                                                ///return the pointer of the right neighbor
+        Pixel* getDownRight() const;                                                            ///return the pointer of the downright neighbor
+        Pixel* getDown() const;                                                                 ///return the pointer of the down neighbor
+        Pixel* getDownLeft() const;                                                             ///return the pointer of the downleft neighbor
+        Pixel* getLeft() const;                                                                 ///return the pointer of the left neighbor
         ///Setters
         void setPixelRed(const int r);                                                          ///sets hue of red to "r"
         void setPixelGreen(const int g);                                                        ///sets hue of green to "g"
         void setPixelBlue(const int b);                                                         ///sets hue of blue to "b"
         void setPixelWhite(const int w);                                                        ///sets hue of white to "w"
         ///Neighbor Setters
-        void setUpLeft(Pixel p);
-        void setUp(Pixel p);
-        void setUpRight(Pixel p);
-        void setRight(Pixel p);
-        void setDownRight(Pixel p);
-        void setDown(Pixel p);
-        void setDownLeft(Pixel p);
-        void setLeft(Pixel p);
+        void setUpLeft(Pixel p);                                                                ///gives a pixel address to the upleft pointer
+        void setUp(Pixel p);                                                                    ///gives a pixel address to the up pointer
+        void setUpRight(Pixel p);                                                               ///gives a pixel address to the upright pointer
+        void setRight(Pixel p);                                                                 ///gives a pixel address to the right pointer
+        void setDownRight(Pixel p);                                                             ///gives a pixel address to the downright pointer
+        void setDown(Pixel p);                                                                  ///gives a pixel address to the down pointer
+        void setDownLeft(Pixel p);                                                              ///gives a pixel address to the downleft pointer
+        void setLeft(Pixel p);                                                                  ///gives a pixel address to the left pointer
 
         ///Functions-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         void adjustPixelBrightness(const int factor, const int brightness);                     ///adjusts the hue of all the values by a factor, must be passed the max brightness as to not over adjust
