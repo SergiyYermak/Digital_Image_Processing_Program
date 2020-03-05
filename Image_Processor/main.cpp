@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <cmath>
 #include "Image.h"
+#include "IntensityMachine.h"
 using namespace std;
 
 int main()
@@ -46,17 +47,22 @@ int main()
         fileIn = "grayspheres.pgm";
         break;
 
-        default: cout << "what are you an idiot?\n";
+        default: cout << "Wrong input?\n";
     }
     fin.close();
+
     Image m(width, height, brightness, format, fileIn);
     m.readFromFile(fileIn);
 
-    /// INSERT TEST CODE
+    IntensityMachine im;
+    Image n(im.contrastStretch(m,100,75,150, 175));
 
-    /// ****************
-
-    m.writeToFile("testOutput.pgm");
+    if(format == "P3")
+    {
+        n.writeToFile("testColorOutput.ppm");
+    }
+    else
+        n.writeToFile("testGrayOutput.pgm");
 
     ///Draws ppm or pgm file onto the console window
     //m.drawToConsole();

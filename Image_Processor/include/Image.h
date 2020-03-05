@@ -2,12 +2,14 @@
 #define IMAGE_H
 #include "Vector.h"
 #include <string>
+#include <cmath>
 class Image : Vector
 {
     public:
         ///Constructors--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         Image();                                                                                                                            ///default constructor, creates 3 by 3 empty matrix with 255 brightness empty format and empty fileName
         Image(const int columns, const int rows, const int brightness, const std::string form, const std::string fName);                    ///main constructor, created columns by rows matrix and initializes private members to the passed values
+        Image(const Image &obj);                                                                                                            ///creates a new image from another one
 
         ///De-constructors-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         ~Image();
@@ -19,15 +21,15 @@ class Image : Vector
         int getBrightness() const;                                                                                                          ///returns the value for max brightness
         std::string getFormat() const;                                                                                                      ///returns the format of the image
         std::string getFileName() const;                                                                                                    ///returns the file name associated with the image
-        Pixel getImagePixel(const int row, const int column);                                                                               ///returns the Pixel p at position (row,column)
-        Vector getRowVector(const int row);                                                                                                 ///builds and returns Vector v at matrix row position "row"
-        Vector getColumnVector(const int column);                                                                                           ///returns Vector from image array at position "column"
+        Pixel getImagePixel(const int row, const int column) const;                                                                               ///returns the Pixel p at position (row,column)
+        Vector getRowVector(const int row) const;                                                                                                 ///builds and returns Vector v at matrix row position "row"
+        Vector getColumnVector(const int column) const;                                                                                           ///returns Vector from image array at position "column"
         ///Setters
         void setImagePixel(const int column, const int row, Pixel input);                                                                   ///sets Pixel input at position (row, column)
         void setRowVector(const int row, Vector &v);                                                                                        ///sets Vector v(dynamic array v) at matrix row position "row"
         void setColumnVector(const int column, Vector &v);                                                                                  ///sets Vector v(dynamic array v) at matrix array position "column"
         ///Operators-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        void operator= (Image obj);
+        void operator= (Image obj);                                                                                                        ///using the '=' operator, this image can be set to "obj" image
         ///Functions-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         void writeToFile();                                                                                                                 ///writes the Image data to a file associated with it
         void writeToFile(std::string fileIn);                                                                                               ///writes the Image to a new file name
@@ -38,14 +40,6 @@ class Image : Vector
         Image stretchImage(const int widthFactor, const int heightFactor);                                                                  ///stretch image by an integer factor
         void convertToGray();                                                                                                               ///converts colored image to gray scale
         //void drawToConsole();                                                                                                             ///Used if running a windows machine for comfort. To use, uncomment this line, line 1, 2, and 443 - 481 in Image.cpp
-        ///Intensity Transformations-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        void negative();                                                                                                                    ///make a negative of the original image
-        void logTransformation();                                                                                                           ///perform a log negative transformation on the image
-        void powerTransformation(const double gammma);                                                                                      ///perform a gamma transformation on the image
-        void contrastStretch(const int r1, const int s1, const int r2, const int s2);                                                       ///contrast stretch a washed out image
-        void intensityLevelSlicing(const int a, const int b, const bool showOther);                                                         ///preform intensity slicing from a to b range, true to leave other intensities unchanged
-        Image bitPlaneSlice(const int bitPlane);                                                                                            ///transformation function for generating bit planes
-        Image bitPlaneReconstruction(const int a, const int b);                                                                             ///reconstruct image from bit plane a to b
         ///Histogram Processing------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         void makeEqualizedHistogram();
         ///TODO: Histogram Matching
@@ -62,9 +56,5 @@ class Image : Vector
         int maxBrightness;
         std::string format;
         std::string fileName;
-        ///Functions
-        int calcContrast(const int r1, const int r2, const int s1, const int s2, const double original);                                    ///helper function for contrast stretch
-        std::string intToBinary(int input);                                                                                                 ///helper function for bit plane slice
-        void addBitPlane(Image bitPlaneSlice, int bitLevel);                                                                                ///helper function for bit plane reconstruction
 };
 #endif // IMAGE_H

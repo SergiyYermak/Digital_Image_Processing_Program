@@ -3,7 +3,6 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-#include <cmath>
 #include <string>
 #include "Image.h"
 using namespace std;
@@ -37,6 +36,28 @@ Image::Image(const int columns, const int rows, const int brightness, const stri
     format = form;
     fileName = fName;
 }
+Image::Image(const Image &obj)
+{
+    image = new Vector[obj.getColumns()];
+    for (int i = 0; i < obj.getColumns(); i++)
+    {
+        Vector v(obj.getRows());
+        image[i] = v;
+    }
+    numColumns = obj.getColumns();
+    numRows = obj.getRows();
+    maxBrightness = obj.getBrightness();
+    format = obj.getFormat();
+    fileName = obj.getFileName();
+    for(int row = 0; row < obj.getRows(); row++)
+    {
+        for(int col = 0; col < obj.getColumns(); col++)
+        {
+            Pixel p = obj.getImagePixel(row, col);
+            setImagePixel(col, row, p);
+        }
+    }
+}
 ///De-constructors-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Image::~Image(){}
 ///Setters & Getters---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -61,12 +82,12 @@ string Image::getFileName() const
 {
     return fileName;
 }
-Pixel Image::getImagePixel(const int row, const int column)
+Pixel Image::getImagePixel(const int row, const int column) const
 {
     Vector v = image[column];
     return v.getVectorPixel(row);
 }
-Vector Image::getRowVector(const int row)
+Vector Image::getRowVector(const int row) const
 {
     Vector v(getColumns());
     for(int i = 0; i < getColumns(); i++)
@@ -76,7 +97,7 @@ Vector Image::getRowVector(const int row)
     }
     return v;
 }
-Vector Image::getColumnVector(const int column)
+Vector Image::getColumnVector(const int column) const
 {
     return image[column];
 }
@@ -101,6 +122,11 @@ void Image::setColumnVector(const int column, Vector &v)
 ///Operators-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Image::operator = (Image obj)
 {
+    numColumns = obj.getColumns();
+    numRows = obj.getRows();
+    maxBrightness = obj.getBrightness();
+    format = obj.getFormat();
+    fileName = obj.getFileName();
     for(int row = 0; row < obj.getRows(); row++)
     {
         for(int col = 0; col < obj.getColumns(); col++)
@@ -479,337 +505,6 @@ void Image::drawToConsole()
     }
 }
 */
-///Intensity Transformations-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-void Image::negative()
-{
-    int intensity = getBrightness();
-
-    if(getFormat() == "P3")
-    {
-        for(int c = 0; c < getColumns(); c++)
-        {
-            for(int r = 0; r < getRows(); r++)
-            {
-                Pixel p = getImagePixel(r,c);
-                int negativeR = intensity - p.getPixelRed();
-                int negativeG = intensity - p.getPixelGreen();
-                int negativeB = intensity - p.getPixelBlue();
-                p.setPixelRed(negativeR);
-                p.setPixelGreen(negativeG);
-                p.setPixelBlue(negativeB);
-                setImagePixel(c,r,p);
-            }
-        }
-
-    }
-    else
-    {
-        for(int c = 0; c < getColumns(); c++)
-        {
-            for(int r = 0; r < getRows(); r++)
-            {
-                Pixel p = getImagePixel(r,c);
-                int negative = intensity - p.getPixelWhite();
-                p.setPixelWhite(negative);
-                setImagePixel(c,r,p);
-            }
-        }
-    }
-}
-void Image::logTransformation()
-{
-    if(getFormat()=="P3")
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            for(int row = 0; row < getRows(); row++)
-            {
-                Pixel p = getImagePixel(row, col);
-                int newR = (getBrightness()/log(1+getBrightness()))*log(1+p.getPixelRed());
-                int newG = (getBrightness()/log(1+getBrightness()))*log(1+p.getPixelGreen());
-                int newB = (getBrightness()/log(1+getBrightness()))*log(1+p.getPixelBlue());
-                p.setPixelRed(newR);
-                p.setPixelGreen(newG);
-                p.setPixelBlue(newB);
-                setImagePixel(col,row,p);
-            }
-        }
-    }
-    else
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            for(int row = 0; row < getRows(); row++)
-            {
-                Pixel p = getImagePixel(row, col);
-                int newW = (getBrightness()/log(1+getBrightness()))*log(1+p.getPixelWhite());
-                p.setPixelWhite(newW);
-                setImagePixel(col,row,p);
-            }
-        }
-    }
-}
-void Image::powerTransformation(const double gamma)
-{
-    if(getFormat()=="P3")
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            for(int row = 0; row < getRows(); row++)
-            {
-                Pixel p = getImagePixel(row, col);
-                int newR = (pow(((double)p.getPixelRed()/(double)getBrightness()),gamma)) * getBrightness();
-                int newG = (pow(((double)p.getPixelGreen()/(double)getBrightness()),gamma)) * getBrightness();
-                int newB = (pow(((double)p.getPixelBlue()/(double)getBrightness()),gamma)) * getBrightness();
-                p.setPixelRed(newR);
-                p.setPixelGreen(newG);
-                p.setPixelBlue(newB);
-                setImagePixel(col, row, p);
-            }
-        }
-    }
-    else
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            for(int row = 0; row < getRows(); row++)
-            {
-                Pixel p = getImagePixel(row, col);
-                int newW = (pow(((double)p.getPixelWhite()/(double)getBrightness()),gamma)) * getBrightness();
-                p.setPixelWhite(newW);
-                setImagePixel(col, row, p);
-            }
-        }
-    }
-}
-void Image::contrastStretch(const int r1, const int s1, const int r2, const int s2)
-{
-    for(int row = 0; row < getRows(); row++)
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            Pixel p = getImagePixel(row, col);
-
-            p.setPixelWhite(calcContrast(r1, r2, s1, s2, p.getPixelWhite()));
-
-            setImagePixel(col, row, p);
-        }
-    }
-}
-int Image::calcContrast(const int r1, const int r2, const int s1, const int s2, const double original)
-{
-    double slope;
-    int output = -1;
-    if(original <= r1)
-    {
-        slope = s1/r1;
-        output = slope * original;
-    }
-    else if(r1 > original && original <= r2)
-    {
-        if(s1 == s2)
-        {
-            output = s2;
-        }
-        ///do not need check for r1 == r2 as it will be calculated by the first if
-        else
-        {
-            slope = (s2 - s1)/(r2 - r1);
-            int value = original - r1;
-            output = s1+ (value * slope);
-        }
-    }
-    else if(original > r2)
-    {
-        slope = (getBrightness() - s2)/(getBrightness() - r2);
-        int value = original - r2;
-        output = s2 + (value * slope);
-    }
-    return output;
-}
-void Image::intensityLevelSlicing(const int a, const int b, const bool showOther)
-{
-    if(showOther == false)
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            for(int row = 0; row < getRows(); row++)
-            {
-                Pixel p = getImagePixel(row, col);
-                if(p.getPixelWhite() >= a && p.getPixelWhite() <= b) //in range
-                {
-                    p.setPixelWhite(getBrightness()/2);
-                    setImagePixel(col, row, p);
-                }
-                else
-                {
-                    p.setPixelWhite(0);
-                    setImagePixel(col, row, p);
-                }
-
-            }
-        }
-    }
-    else
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            for(int row = 0; row < getRows(); row++)
-            {
-                Pixel p = getImagePixel(row, col);
-                if(p.getPixelWhite() >= a && p.getPixelWhite() <= b) //in range
-                {
-                    p.setPixelWhite(getBrightness()/1.25);
-                    setImagePixel(col, row, p);
-                }
-            }
-        }
-    }
-}
-Image Image::bitPlaneSlice(const int bitPlaneNum)
-{
-    Image bitPlaneImage(getColumns(), getRows(), 1, "P2", getFileName());
-    ///for all the pixels
-    for(int row = 0; row < getRows(); row++)
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            ///grab a pixel
-            Pixel p = getImagePixel(row, col);
-            ///convert its intensity to binary
-            string binary = intToBinary(p.getPixelWhite());
-            ///check the bitplane number
-            if(bitPlaneNum == 8)
-            {
-                if(binary.at(0)=='1')
-                    p.setPixelWhite(1);
-                else
-                    p.setPixelWhite(0);
-            }
-            if(bitPlaneNum == 7)
-            {
-                if(binary.at(1)=='1')
-                    p.setPixelWhite(1);
-                else
-                    p.setPixelWhite(0);
-            }
-            if(bitPlaneNum == 6)
-            {
-                if(binary.at(2)=='1')
-                    p.setPixelWhite(1);
-                else
-                    p.setPixelWhite(0);
-            }
-            if(bitPlaneNum == 5)
-            {
-                if(binary.at(3)=='1')
-                    p.setPixelWhite(1);
-                else
-                    p.setPixelWhite(0);
-            }
-            if(bitPlaneNum == 4)
-            {
-                if(binary.at(4)=='1')
-                    p.setPixelWhite(1);
-                else
-                    p.setPixelWhite(0);
-            }
-            if(bitPlaneNum == 3)
-            {
-                if(binary.at(5)=='1')
-                    p.setPixelWhite(1);
-                else
-                    p.setPixelWhite(0);
-            }
-            if(bitPlaneNum == 2)
-            {
-                if(binary.at(6)=='1')
-                    p.setPixelWhite(1);
-                else
-                    p.setPixelWhite(0);
-            }
-            if(bitPlaneNum == 1)
-            {
-                if(binary.at(7)=='1')
-                    p.setPixelWhite(1);
-                else
-                    p.setPixelWhite(0);
-            }
-            bitPlaneImage.setImagePixel(col, row, p);
-        }
-    }
-    return bitPlaneImage;
-}
-Image Image::bitPlaneReconstruction(int a, int b)
-{
-    Image reconstructedImage(getColumns(), getRows(), getBrightness(), getFormat(), getFileName());
-    for(int i = a; i >= b; i--)
-    {
-        reconstructedImage.addBitPlane(bitPlaneSlice(i), i);
-    }
-    return reconstructedImage;
-}
-void Image::addBitPlane(Image bitPlaneSlice, int bitLevel)
-{
-    for(int row = 0; row < getRows(); row++)
-    {
-        for(int col = 0; col < getColumns(); col++)
-        {
-            Pixel p = getImagePixel(row, col);
-            int currentIntensity = p.getPixelWhite();
-            int intensity = 0;
-            if(bitPlaneSlice.getImagePixel(row, col).getPixelWhite() > 0)
-                intensity = pow(2,(bitLevel-1));
-            p.setPixelWhite(currentIntensity + intensity);
-            setImagePixel(col, row, p);
-        }
-    }
-}
-string Image::intToBinary(int input)
-{
-    string binary = "00000000";
-    if(input >= 128)
-    {
-        binary[0] = '1';
-        input -= 128;
-    }
-    if(input >= 64)
-    {
-        binary[1] = '1';
-        input -= 64;
-    }
-    if(input >= 32)
-    {
-        binary[2] = '1';
-        input -= 32;
-    }
-    if(input >= 16)
-    {
-        binary[3] = '1';
-        input -= 16;
-    }
-    if(input >= 8)
-    {
-        binary[4] = '1';
-        input -= 8;
-    }
-    if(input >= 4)
-    {
-        binary[5] = '1';
-        input -= 4;
-    }
-    if(input >= 2)
-    {
-        binary[6] = '1';
-        input -= 2;
-    }
-    if(input >= 1)
-    {
-        binary[7] = '1';
-        input -= 1;
-    }
-    return binary;
-}
 ///Histogram Processing------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 void Image::makeEqualizedHistogram()
 {

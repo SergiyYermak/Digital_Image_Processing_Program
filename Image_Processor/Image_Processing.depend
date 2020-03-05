@@ -63,17 +63,17 @@
 	"Vector.h"
 	<iostream>
 
-1581094028 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\image.cpp
+1582656671 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\image.cpp
 	<iostream>
 	<iomanip>
 	<fstream>
-	<cmath>
 	<string>
 	"Image.h"
 
-1581093935 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\image.h
+1582655347 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\image.h
 	"Vector.h"
 	<string>
+	<cmath>
 
 1577287314 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\vector.h
 	"Pixel.h"
@@ -86,4 +86,19 @@
 1577287314 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\vector.cpp
 	"Vector.h"
 	<iostream>
+
+1582743095 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\main.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+	<cmath>
+	"Image.h"
+	"IntensityMachine.h"
+
+1582742752 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\intensitymachine.cpp
+	"IntensityMachine.h"
+
+1582742744 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\intensitymachine.h
+	"Image.h"
+	<string>
 
