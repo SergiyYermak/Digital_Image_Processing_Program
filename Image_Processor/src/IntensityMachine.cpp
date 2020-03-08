@@ -3,7 +3,30 @@ using namespace std;
 
 ///Intensity Transformations-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 /**
+* Adjusts each intensity to be original intensity + factor
+*
+* @param m                          Object of type Image the function will work on
+* @param factor                     Integer that is added to the original intensity
+* @relates adjustPixelBrightness    This method resides in the Pixel.h and it adjusts all 4 hues by the factor passed
+* @return result                    Object of type Image after the brightness is adjusted
+*/
+Image IntensityMachine::adjustBrightness(const Image m, const int factor)
+{
+    Image result(m);
+    for(int i = 0; i < m.getRows(); i++)
+    {
+        for(int j = 0; j < m.getColumns(); j++)
+        {
+            Pixel p = m.getImagePixel(i,j);
+            p.adjustPixelBrightness(factor, m.getBrightness());
+            result.setImagePixel(j,i,p);
+        }
+    }
+    return result;
+}
+/**
 * Turns a given image to it's negative form by inverting its intensity values.
+* General formula: new intensity = max image intensity - current intensity of pixel
 *
 * @param image          Object of type Image the function will work on
 * @return result        Inverted input
@@ -159,9 +182,16 @@ Image IntensityMachine::contrastStretch(const Image m, const int r1, const int s
     return result;
 }
 /**
+* Performs a intensity level slicing on the image
+* General idea is highlight pixels with intensity falling into range a - b and reduce all other intensities to a lower level
+* However, the boolean showOthers highlights range a - b and leaves other intensities unchanged
 *
-*
-*
+* @param m              Object of type image the transformation will be preformed on
+* @param a, b           The range of intensities to be highlighted, note that "a" must be < "b"
+* @param showOther      Boolean that decided what to do with intensities out of range.
+*                        False - Intensities are reduced to 0
+*                        True - Intensities are unchanged
+* @return result        Object of type image returned after the transformation is performed
 */
 Image IntensityMachine::intensityLevelSlicing(const Image m, const int a, const int b, const bool showOther)
 {
@@ -204,6 +234,24 @@ Image IntensityMachine::intensityLevelSlicing(const Image m, const int a, const 
     }
     return result;
 }
+/**
+* Highlights the contribution made to total image appearance by specific bits
+*
+* General algorithm:
+* For each pixel
+** Convert its intensity to binary
+*** at binary number position [bitPlaneNum] check if 1 or 0
+**** if one
+***** set intensity to 1
+**** if zero
+***** set intensity to 0
+*
+* @param m                              Object of type image the transformation will be preformed on
+* @param bitPlaneNum                    Integer that decided which bit plane slice is chosen to be returned. Range [1-8]
+* @relates bitPlaneReconstruction       This function is called and passed when reconstructing an image
+* @relates intToBinary                  Converts an integer to a 8 bit binary number
+* @return bitPlaneImage                 Object of type image made with a bit plane slice
+*/
 Image IntensityMachine::bitPlaneSlice(const Image m, const int bitPlaneNum)
 {
     Image bitPlaneImage(m.getColumns(), m.getRows(), 1, "P2", m.getFileName());
@@ -278,7 +326,15 @@ Image IntensityMachine::bitPlaneSlice(const Image m, const int bitPlaneNum)
     }
     return bitPlaneImage;
 }
-
+/**
+* Reconstructs an image with bit plane slices given in the range [a-b] *note: a > b
+*
+* @param m                              Object of type image the transformation will be preformed on
+* @param a, b                           The range of bit planes that are used for reconstruction
+* @relates addBitPlane                  Adds a bit plane slice to an image
+* @relates bitPlaneSlice                Returns a selected bit plane slice from a given image
+* @return reconstructedImage            Object of type image, composed of bit plane slices
+*/
 Image IntensityMachine::bitPlaneReconstruction(const Image m, int a, int b)
 {
     Image reconstructedImage(m.getColumns(), m.getRows(), m.getBrightness(), m.getFormat(), m.getFileName());
@@ -304,6 +360,23 @@ void IntensityMachine::addBitPlane(Image reconstructedImage, Image bitPlaneSlice
         }
     }
 }
+/**
+* Calculates new intensity value based on the range and the slope within that range
+* General algorithm:
+* Given original
+** If original is in range [0 - r1]
+*** New intensity = slope * original, where slope = s1/r1
+**** Return new intensity
+** else if other ranges: [r1 -r2], [r2 - maxIntensity]
+*** calculate slope and new intensity
+**** return new
+*
+* @param maxBrightness          maximum intensity value used to calculate the slope in range [r2 - maxIntensity]
+* @param r1, r2                 ranges for original intensity
+* @param s1, s2                 ranges for new intensity
+* @param original               original intensity
+* @return output                new intensity
+*/
 int IntensityMachine::calcContrast(const int maxBrightness, const int r1, const int r2, const int s1, const int s2, const double original)
 {
     double slope;
@@ -313,7 +386,7 @@ int IntensityMachine::calcContrast(const int maxBrightness, const int r1, const 
         slope = s1/r1;
         output = slope * original;
     }
-    else if(r1 > original && original <= r2)
+    else if(r1 < original && original <= r2)
     {
         if(s1 == s2)
         {
@@ -335,6 +408,12 @@ int IntensityMachine::calcContrast(const int maxBrightness, const int r1, const 
     }
     return output;
 }
+/**
+* Returns a 8 bit binary string given a number in range 0 - 255
+*
+* @param input          Integer to be converted to binary
+* @return binary        Binary string from a given input
+*/
 string IntensityMachine::intToBinary(int input)
 {
     string binary = "00000000";

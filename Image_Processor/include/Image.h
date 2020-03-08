@@ -35,7 +35,6 @@ class Image : Vector
         void writeToFile(std::string fileIn);                                                                                               ///writes the Image to a new file name
         void readFromFile(const std::string fileIn);                                                                                        ///builds Pixels and populates the matrix with the data from the give fileIn file
         Image rotateImage(const int choice);                                                                                                ///rotates image based on 3 choices (1. 90 clockwise, 2. 90 counter clockwise, 3. 180 upside down)
-        void adjustBrightness(const int factor);                                                                                            ///add(subtract if negative) factor to the pixels hue values
         void addWatermark(const int brightness, const int letterWidth, const int letterHeight, const int firstRow, const int firstCol);     ///add "HILL" watermark to the image, the watermark has a black to white hue, letter width, letter height, and starting location
         Image stretchImage(const int widthFactor, const int heightFactor);                                                                  ///stretch image by an integer factor
         void convertToGray();                                                                                                               ///converts colored image to gray scale

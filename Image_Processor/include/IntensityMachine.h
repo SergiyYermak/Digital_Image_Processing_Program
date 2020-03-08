@@ -13,6 +13,7 @@ class IntensityMachine
         ~IntensityMachine() {};
 
         ///Intensity Transformations-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        Image adjustBrightness(const Image m, const int factor);                                                                            ///adjust each intensity to be original intensity + factor
         Image negative(const Image m);                                                                                                      ///make a negative of the original image
         Image logTransformation(const Image m);                                                                                             ///perform a log negative transformation on the image
         Image powerTransformation(const Image m, const double gammma);                                                                      ///perform a gamma transformation on the image

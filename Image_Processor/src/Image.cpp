@@ -316,18 +316,7 @@ Image Image::rotateImage(int choice)
         return n;
     }
 }
-void Image::adjustBrightness(const int factor)
-{
-    for(int i = 0; i < getRows(); i++)
-    {
-        for(int j = 0; j < getColumns(); j++)
-        {
-            Pixel p = getImagePixel(i,j);
-            p.adjustPixelBrightness(factor,getBrightness());
-            setImagePixel(j,i,p);
-        }
-    }
-}
+
 void Image::addWatermark(const int brightness, const int letterWidth, const int letterHeight, const int firstRow, const int firstCol)
 {
     ///Setting up pixel p brightness
