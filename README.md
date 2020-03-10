@@ -5,8 +5,8 @@
 *Here is the exact book* <http://www.imageprocessingplace.com/DIP-4E/dip4e_main_page.htm>
 
 *The concepts that are already included are: Image negatives, log transformations, power-law (gamma) transformations, contrast
-streching, intensity-level slicing, bit-plane slicing, 90 degree rotations, image streching, converting color images to gray scale, and
-adding a simple "HILL" watermark.*
+streching, intensity-level slicing, bit-plane slicing, 90 degree rotations, image streching, converting color images to gray scale,
+adding a simple "HILL" watermark, and preforming histogram equalization.*
 
 ## Installation/Requirements
 *These programs were written on Code Blocks. Specifically, Release 17.12 rev 11256 (2017-12-28 10:44:41) gcc 5.1.0 Windows/unicode - 32 bit\
