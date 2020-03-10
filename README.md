@@ -20,9 +20,9 @@ Additionally, the image files are just lines of numbers, to view these images or
  best results. Therefore, I use my own data structure which is basically a dynamic array within another dynamic array. Furthermore,
  sample inputs are provided for this application. The programs were made to work with PGM and PPM files. So the "sampleinputs" folder
  holds a small variety of images to play with. The images are represented as objects of type Image. Image.h has the constructor and has
- a few helper functions such as readFromFile that help initialize the image. However, to not congest this file, I have seperated most of
- the methods done to it in what I call machines. These files are seperated into catagories, for example, the intensityMachine.h holds
- all functions related to intensity transformations. Therfore, if one would like to preform a intesnsity transformation to a image, one
+ a few helper functions such as readFromFile that help initialize the image. However, to not congest this file, I have separated most of
+ the methods done to it in what I call machines. These files are separated into categories, for example, the intensityMachine.h holds
+ all functions related to intensity transformations. Therefore, if one would like to preform a intensity transformation to a image, one
  must initialize the intensity machine and then call the function they would like with image as the parameter. I provide an example
  bellow of what main.cpp would look like in the case we want a negative image. The main.cpp has a small menu already set up for testing.
  Here is portion of that code.*
@@ -41,7 +41,7 @@ Additionally, the image files are just lines of numbers, to view these images or
          n.writeToFile("testGrayOutput.pgm");
 
  ## Support
- *I don't work at CodeBlocks or IrfanView. So if the problem is with the programs, not my code, then find answers online. However, if 
+ *I don't work at CodeBlocks or IrfanView. So if the problem is with the programs, not my code, then find answers online. However, if
  you have questions about my code, my email is syerm001@odu.edu*
 
  ## Roadmap

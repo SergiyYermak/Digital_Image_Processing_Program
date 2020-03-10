@@ -63,17 +63,18 @@
 	"Vector.h"
 	<iostream>
 
-1583681847 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\image.cpp
+1583781019 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\image.cpp
 	<iostream>
 	<iomanip>
 	<fstream>
 	<string>
 	"Image.h"
 
-1583682257 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\image.h
+1583853957 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\image.h
 	"Vector.h"
 	<string>
 	<cmath>
+	<iostream>
 
 1577290914 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\vector.h
 	"Pixel.h"
@@ -87,18 +88,21 @@
 	"Vector.h"
 	<iostream>
 
-1582746854 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\main.cpp
-	<iostream>
+1583864336 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\main.cpp
 	<fstream>
 	<iomanip>
-	<cmath>
-	"Image.h"
+	"IntensityMachine.h"
+	"HistogramMachine.h"
+
+1583682257 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\intensitymachine.cpp
 	"IntensityMachine.h"
 
-1582742752 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\intensitymachine.cpp
-	"IntensityMachine.h"
-
-1583681847 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\intensitymachine.h
+1583853913 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\intensitymachine.h
 	"Image.h"
-	<string>
+
+1583863794 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\histogrammachine.cpp
+	"HistogramMachine.h"
+
+1583865065 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\histogrammachine.h
+	"Image.h"
 

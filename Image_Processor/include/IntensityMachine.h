@@ -1,7 +1,6 @@
 #ifndef INTENSITYMACHINE_H
 #define INTENSITYMACHINE_H
 #include "Image.h"
-#include <string>
 
 class IntensityMachine
 {

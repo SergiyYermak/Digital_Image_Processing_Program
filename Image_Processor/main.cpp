@@ -1,10 +1,7 @@
-//#include <windows.h>
-#include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <cmath>
-#include "Image.h"
 #include "IntensityMachine.h"
+#include "HistogramMachine.h"
 using namespace std;
 
 int main()
@@ -53,17 +50,20 @@ int main()
 
     Image m(width, height, brightness, format, fileIn);
     m.readFromFile(fileIn);
-
     IntensityMachine im;
-    Image n(im.contrastStretch(m,100,75,150, 175));
+    m = im.powerTransformation(m, 0.5);
+
+    HistogramMachine hm;
+    Image n(m);
+    n = hm.histogramEqualizeImage(m);
+
 
     if(format == "P3")
     {
-        n.writeToFile("testColorOutput.ppm");
+        m.writeToFile("testColorOutput.ppm");
+
     }
     else
-        n.writeToFile("testGrayOutput.pgm");
-
-    ///Draws ppm or pgm file onto the console window
-    //m.drawToConsole();
+        m.writeToFile("testGrayOutputM.pgm");
+        n.writeToFile("testGrayOutputN.pgm");
 }
