@@ -22,6 +22,13 @@ int main()
              << "4. grayspheres.pgm" << endl;
     cin >> fileChoice;
     ifstream fin;
+
+    fin.open("fadedcircle.pgm");
+    fin >> format >> width >> height >> brightness;
+    fileIn = "fadedcircle.pgm";
+    Image fadedCircle(width, height, brightness, format, fileIn);
+    fadedCircle.readFromFile(fileIn);
+
     switch(fileChoice)
     {
         case 1: fin.open("cake.ppm");
@@ -44,26 +51,22 @@ int main()
         fileIn = "grayspheres.pgm";
         break;
 
-        default: cout << "Wrong input?\n";
+        default: cout << "Wrong input was received\n";
     }
     fin.close();
 
-    Image m(width, height, brightness, format, fileIn);
-    m.readFromFile(fileIn);
+    Image original(width, height, brightness, format, fileIn);
+    original.readFromFile(fileIn);
+
     IntensityMachine im;
-    m = im.powerTransformation(m, 0.5);
+    Image darkerOrginal(im.powerTransformation(original, 3.0));
 
     HistogramMachine hm;
-    Image n(m);
-    n = hm.histogramEqualizeImage(m);
+    Image equalized(hm.histogramEqualizeImage(darkerOrginal));
 
+    Image matched(hm.histogramMatching(darkerOrginal, equalized));
 
-    if(format == "P3")
-    {
-        m.writeToFile("testColorOutput.ppm");
-
-    }
-    else
-        m.writeToFile("testGrayOutputM.pgm");
-        n.writeToFile("testGrayOutputN.pgm");
+    darkerOrginal.writeToFile("testGrayOutput1.pgm");
+    equalized.writeToFile("testGrayOutput2.pgm");
+    matched.writeToFile("testGrayOutput3.pgm");
 }

@@ -63,7 +63,7 @@
 	"Vector.h"
 	<iostream>
 
-1583781019 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\image.cpp
+1584135267 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\image.cpp
 	<iostream>
 	<iomanip>
 	<fstream>
@@ -88,7 +88,7 @@
 	"Vector.h"
 	<iostream>
 
-1583864336 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\main.cpp
+1584198164 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\main.cpp
 	<fstream>
 	<iomanip>
 	"IntensityMachine.h"
@@ -100,9 +100,9 @@
 1583853913 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\intensitymachine.h
 	"Image.h"
 
-1583863794 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\histogrammachine.cpp
+1584136610 source:c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\src\histogrammachine.cpp
 	"HistogramMachine.h"
 
-1583865065 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\histogrammachine.h
+1584131360 c:\users\sergiyyermak\desktop\cs projects\code_blocks_image_processor\digital_image_processing_program\image_processor\include\histogrammachine.h
 	"Image.h"
 
